@@ -155,19 +155,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Check for form success message from Netlify
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('success') && window.location.hash === '#contact') {
-        const contactForm = document.querySelector('.contact-form');
+    // EmailJS Contact Form Handling
+    // SETUP INSTRUCTIONS:
+    // 1. Go to https://www.emailjs.com/ and create a free account
+    // 2. Create an email service (Gmail, Outlook, etc.)
+    // 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{message}}, {{to_email}}
+    // 4. Replace the placeholders below with your actual EmailJS credentials
+    (function() {
+        // Initialize EmailJS with your public key
+        emailjs.init('kCaNXdADA_YXV_lzo'); // Your EmailJS public key
+        
+        const contactForm = document.getElementById('contact-form');
         if (contactForm) {
-            contactForm.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
-                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Thank You!</h3>
-                    <p style="color: var(--text-secondary);">Your message has been sent successfully. I'll get back to you soon!</p>
-                </div>
-            `;
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                // Show loading state
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                // Prepare template parameters
+                const templateParams = {
+                    from_name: contactForm.from_name.value,
+                    from_email: contactForm.from_email.value,
+                    message: contactForm.message.value,
+                    to_email: 'shayanakhtar405@gmail.com' // Your email address
+                };
+                
+                // Send email using EmailJS
+                emailjs.send('service_bscsxgb', 'template_trd7opx', templateParams) // Your service and template IDs
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        
+                        // Show success message
+                        contactForm.innerHTML = `
+                            <div style="text-align: center; padding: 2rem;">
+                                <i class="fas fa-check-circle" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
+                                <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Thank You!</h3>
+                                <p style="color: var(--text-secondary);">Your message has been sent successfully. I'll get back to you soon!</p>
+                            </div>
+                        `;
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                        
+                        // Show error message
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        alert('Sorry, there was an error sending your message. Please try again or contact me directly at shayanakhtar405@gmail.com');
+                    });
+            });
         }
-    }
+    })();
 
 });
