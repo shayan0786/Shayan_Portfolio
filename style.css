@@ -52,6 +52,10 @@ body::before {
     padding: 0 2rem;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .section-padding {
     padding: 100px 0;
 }

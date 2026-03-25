@@ -155,4 +155,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Check for form success message from Netlify
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success') && window.location.hash === '#contact') {
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Thank You!</h3>
+                    <p style="color: var(--text-secondary);">Your message has been sent successfully. I'll get back to you soon!</p>
+                </div>
+            `;
+        }
+    }
+
 });
