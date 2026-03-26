@@ -213,6 +213,11 @@ body::before {
     font-size: 0.85rem;
 }
 
+.project-buttons .btn {
+    flex: 1;
+    justify-content: center;
+}
+
 .btn-primary {
     background: var(--text-primary);
     color: var(--bg-main);
@@ -233,6 +238,12 @@ body::before {
     background: var(--accent-glow);
     color: #fff;
     transform: translateY(-2px);
+}
+
+.btn i {
+    margin-right: 0.4rem;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 /* Hero Section */
@@ -574,6 +585,38 @@ body::before {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-height: 520px;
+}
+
+@media (max-width: 1200px) {
+    .projects-flex {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .project-card {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 850px) {
+    .projects-flex {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .project-card {
+        min-height: 480px;
+    }
+    .project-info {
+        padding: 1rem;
+    }
+    .project-buttons {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+}
+
+.project-info {
+    min-height: 220px;
 }
 
 .project-img-placeholder {
@@ -601,7 +644,7 @@ body::before {
 }
 
 .project-info {
-    padding: 1.5rem;
+    padding: 1rem 1.2rem;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -609,31 +652,63 @@ body::before {
 
 .project-info h3 {
     font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     color: var(--text-primary);
+    line-height: 1.2;
 }
 
 .project-info .project-desc {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
     flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    text-align: left;
+    letter-spacing: normal;
+    margin-right: 0.2rem;
+    word-break: break-word;
+}
+
+.project-info .project-desc span.highlight-word {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+
+.project-info .project-desc .highlight-word {
+    background: rgba(59, 130, 246, 0.2);
+    color: #f8fafc;
+    font-weight: 600;
+    padding: 0.05rem 0.25rem;
+    border-radius: 2px;
 }
 
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
 }
 
 .tech-stack span {
     background: rgba(59, 130, 246, 0.1);
     border: 1px solid rgba(59, 130, 246, 0.3);
     color: var(--text-secondary);
-    padding: 0.2rem 0.6rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.project-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    margin-top: auto;
 }
 
 /* Modal System */
